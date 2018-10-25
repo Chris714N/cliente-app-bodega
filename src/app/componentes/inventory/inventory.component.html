@@ -1,0 +1,40 @@
+<app-sidebar (sended)="status($event)"></app-sidebar>
+<div id="contenido-inventory">
+    <div>
+        <div class="h1-title">
+            <h1>tst</h1>
+        </div>
+        <div id="products">
+                <div *ngFor="let product of products | orderBy: order: false" class="item-product">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            
+                            <div class="header-product">
+                                
+                                <div>
+                                    <div class="product-name">
+                                        <span>
+                                            <a href="#">
+                                                {{product.name}}
+                                            </a>
+                                        </span>
+                                        
+                                    </div>
+                                    
+                                
+                                </div>
+                            </div>
+                            
+                            <div class="publication-text">
+                                <label>
+                                    {{product.description}}
+                                </label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+

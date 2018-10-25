@@ -1,0 +1,90 @@
+<div class="navigation">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+  
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+  
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav" *ngIf="identity">
+            
+              <a [routerLink]="['/']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-home"></span>
+                Inventario
+              </a>
+        
+  
+          
+              <a [routerLink]="['/user-edit']">
+                <span class="glyphicon glyphicon-film"></span>
+                Retirados
+              </a>
+            
+  
+            <li *ngIf="identity.role == 'ROLE_ADMIN'">
+              <a [routerLink]="['/']">
+                <span class="glyphicon glyphicon-user"></span>
+                Gestion de usuarios
+              </a>
+            </li>
+  
+          </ul>
+  
+          <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+  
+            <li>
+              <a [routerLink]="['/login']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-log-in"></span>
+                Login
+              </a>
+            </li>
+  
+          </ul>
+  
+          <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+  
+            <li class="avatar">
+              <!--cargar imagen del usuario-->
+              <img src="{{url+'get-image-user/'+identity.image}}" width="45px" height="45px" *ngIf="identity && identity.image" />
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                {{identity.name}}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+  
+                <li>
+                  <a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Mi perfil
+                  </a>
+                </li>
+                <li>
+                  <!--<a data-toggle="modal" data-target="#myModal">-->
+                  <a [routerLink]="['/user-edit']" [routerLinkActive]="['active']">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    Mis datos
+                  </a>
+                </li>
+                <li>
+                  <a class="pointer" (click)="logout()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    Cerrar sesión
+                  </a>
+                </li>
+  
+              </ul>
+  
+            </li>
+          </ul>
+  
+        </div>
+      </div>
+    </nav>
+  </div>

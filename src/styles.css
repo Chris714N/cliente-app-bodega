@@ -1,1 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+/*Principal*/
+.background-app {
+    background-color: whitesmoke;
+}
+/*Home*/
+
+/*Generales*/
+.h1-strong {
+    font-size: 35px;
+    font-weight: bold;
+    align-content: center;
+    margin-left: 0%;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Taller Bodega estilos*/
+
+.sidebar-home {
+    position: relative !important;
+    box-sizing: content-box;
+}
+
+.contenido-full {
+    padding-left: 80px;
+    float: right;
+    transition: 300ms;
+
+}
+.contenido-small {
+    padding-left: 250px;
+    float: right;
+    transition: 300ms;
+}
+
+
+
+@media (max-width: 768px) {
+
+    .contenido-full {
+        padding-left: 80px;
+        float: right;
+        transition: 300ms;
+    }
+
+    .contenido-small {
+        padding-left: 0px;
+        float: right;
+        transition: 300ms;
+    }
+}
+

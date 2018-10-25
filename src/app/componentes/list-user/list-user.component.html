@@ -1,0 +1,217 @@
+<app-sidebar (sended)="status($event)"></app-sidebar>
+
+<!-- Contenedor ajustable a sidebar -->
+<div id="contenido-user">
+
+    <!-- Titulo -->
+    <div class="h1-title">
+        <h1>{{title}}</h1>
+    </div>
+
+    <div class="filter-btn">
+        <button class="btn-order" (click)="orderList('nick')">
+            Nick
+        </button>
+        <button class="btn-order" (click)="orderList('_id')">
+            Id
+        </button>
+        <button class="btn-order" (click)="orderList('surname')">
+            Surname
+        </button>
+        <button class="btn-order" (click)="orderList('role')">
+            Role
+        </button>
+        <button class="btn-order" (click)="orderList('name')">
+            Name
+        </button>
+    </div>
+
+    <div class="panel-list">
+        <!-- Lista de usuarios -->
+        <div id="list-user" (scroll)="doSomethingOnScroll($event)">
+            <!-- Contenedor de usuarios -->
+            <div *ngFor="let user of users | orderBy: order: false; index as i" [attr.data-index]="i" class="item-user row">
+
+                <div class="content-user col-sm-12">
+
+                    <div class="avatar-user">
+                        <div *ngIf="user.image" class="">
+                            <img src="{{url + 'get-image-user/' + user.image}}" alt="avatar" width="60px" height="60px">
+                        </div>
+                        <div *ngIf="!user.image" class="">
+                            <img src="assets/user.png" alt="avatar" width="40px" height="40px">
+                        </div>
+                    </div>
+
+                    <div class="data-user">
+                        <div>
+                            <div class="user-name">
+                                <span>
+                                    {{user.name + ' ' + user.surname}}
+                                </span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="user-nick">
+                            <label>
+                                {{user.nick}}
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="stats">
+                        <div class="content-stats">
+                            <div>
+                                <span *ngIf="user.role == 'ROLE_BODEGA'">
+                                    Rol: Bodega
+                                </span>
+                                <span *ngIf="user.role == 'ROLE_TALLER'">
+                                    Rol: Taller
+                                </span>
+                                <span *ngIf="user.role == 'ROLE_ADMIN'">
+                                    Rol: Administrador
+                                </span>
+                            </div>
+                            <div>
+                                <div class="stats-data">
+                                    <div *ngFor="let stats of statsUser | orderBy: order: false; index as s" [attr.data-index]="s">
+                                        <div *ngIf="stats.user._id == user._id && statsUser[s]">
+                                            <div>
+                                                <span>
+                                                    Productos: {{statsUser[s].totalStock}}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    Retirados: {{statsUser[s].deliveredTotal}}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    Retornados: {{statsUser[s].returned}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="!statsUser[i]">
+                                        <div class="kart-loader">
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                            <div class="sheath">
+                                                <div class="segment"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="control-user">
+
+                        <button id="button-edit" title="modificar usuario" class="btn-edit btn-content" (click)="editUserForm(user)" data-toggle="modal"
+                            data-target="#edit-user">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+
+
+                        <button title="eliminar usuario" class="btn-delete btn-content" (click)="deleteUser(user._id)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Botones fixed derecha -->
+<div class="contenedor">
+    <button class="botonF1" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <button class="btn-a botonF2" (click)="refresh()" *ngIf="page > 1">
+        <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+    <button class="btn-a botonF3 btn-refresh" (click)="topFunction()" *ngIf="page > 1">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+    </button>
+</div>
+
+<!-- Modal formulario añadir usuario -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <app-add-user></app-add-user>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal formulario editar usuario -->
+<div class="modal fade" id="edit-user" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" *ngIf="editUser">
+                <app-edit-user [user]="editUser"></app-edit-user>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

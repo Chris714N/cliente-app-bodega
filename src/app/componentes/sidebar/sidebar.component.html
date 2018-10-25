@@ -1,0 +1,68 @@
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+
+            <li *ngIf="identity.role == 'ROLE_ADMIN'">
+                <a [routerLink]="['/users']" [routerLinkActive]="['active']">
+                    <i class="glyphicon glyphicon-user"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="#homeSubmenu" class="" data-toggle="collapse" aria-expanded="false">
+                    <i class="glyphicon glyphicon-duplicate"></i>
+                    Home
+                </a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a [routerLink]="['/inventory']" [routerLinkActive]="['active']">inventory</a>
+                    </li>
+                    <li>
+                        <a>fgf</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="glyphicon glyphicon-user"></i>
+                    Perfil
+                </a>
+                <ul class="collapse list-unstyled" id="profileSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a (click)="logout()" class="logout-sidebar">
+                    <i class="glyphicon glyphicon-log-out"></i>
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" (click)="sendPublication($event)">
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+    </div>
+</div>

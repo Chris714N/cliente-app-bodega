@@ -1,0 +1,190 @@
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div *ngIf="status == false && statusMessage != ''">
+            <div id="status-alert" class="alert alert-danger" [class.alert-error-save]="status == false">
+                <Strong>Error: </Strong>{{statusMessage}}
+            </div>
+        </div>
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="form-add-user">
+
+            <div class="content-input">
+                <span class="label-input">
+                    Nombre
+                </span>
+                <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" placeholder="Nombre" class="form-control"
+                    pattern="[a-zA-Z0-9._-]{3,32}$" minlength="3" (focus)="focus('name')" (focusout)="focusOut('name')" [class.alert-input]="name.invalid && (name.dirty || name.touched)"
+                    required>
+
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                    <div id="name-alert" class="alert alert-danger" [class.alert-error]="name.invalid && (name.dirty || name.touched)">
+                        <div *ngIf="name.errors.required">
+                            Campo obligatorio.
+                        </div>
+                        <div *ngIf="name.errors.minlength">
+                            Debe contener 3 caracteres minimo.
+                        </div>
+                        <div *ngIf="name.invalid && !name.errors.minlength && !name.errors.required">
+                            Caracteres no validos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-input">
+                <span class="label-input">
+                    Apellido
+                </span>
+                <input type="text" id="surname" name="surname" #surname="ngModel" [(ngModel)]="user.surname" placeholder="Apellido" class="form-control"
+                    pattern="[a-zA-Z0-9._-]{4,32}$" minlength="4" (focus)="focus('surname')" (focusout)="focusOut('surname')"
+                    [class.alert-input]="surname.invalid && (surname.dirty || surname.touched)" required>
+
+                <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                    <div id="surname-alert" class="alert alert-danger" [class.alert-error]="surname.invalid && (surname.dirty || surname.touched)">
+                        <div *ngIf="surname.errors.required">
+                            Campo obligatorio.
+                        </div>
+                        <div *ngIf="surname.errors.minlength">
+                            Debe contener 4 caracteres minimo.
+                        </div>
+                        <div *ngIf="surname.invalid && !surname.errors.minlength && !surname.errors.required">
+                            Caracteres no validos.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-input">
+                <span class="label-input">
+                    Nick
+                </span>
+                <input type="text" id="nick" name="nick" #nick="ngModel" [(ngModel)]="user.nick" placeholder="Nick" class="form-control"
+                    pattern="[a-zA-Z0-9._-]{4,32}$" minlength="4" (focus)="focus('nick')" (focusout)="focusOut('nick')" [class.alert-input]="nick.invalid && (nick.dirty || nick.touched)"
+                    required>
+
+                <div *ngIf="nick.invalid && (nick.dirty || nick.touched)">
+                    <div id="nick-alert" class="alert alert-danger" [class.alert-error]="nick.invalid && (nick.dirty || nick.touched)">
+                        <div *ngIf="nick.errors.required">
+                            Campo obligatorio.
+                        </div>
+                        <div *ngIf="nick.errors.minlength">
+                            Debe contener 4 caracteres minimo.
+                        </div>
+                        <div *ngIf="nick.invalid && !nick.errors.minlength && !nick.errors.required">
+                            Caracteres no validos.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content-input">
+                <span class="label-input">
+                    Email
+                </span>
+                <input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="Email" class="form-control"
+                    pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="4" (focus)="focus('email')" (focusout)="focusOut('email')"
+                    [class.alert-input]="email.invalid && (email.dirty || email.touched)" required>
+
+                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <div id="email-alert" class="alert alert-danger" [class.alert-error]="email.invalid && (email.dirty || email.touched)">
+                        <div *ngIf="email.errors.required">
+                            Campo obligatorio.
+                        </div>
+                        <div *ngIf="email.errors.minlength">
+                            Debe contener 4 caracteres minimo.
+                        </div>
+                        <div *ngIf="email.invalid && !email.errors.minlength && !email.errors.required">
+                            Caracteres o patron no validos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="radio-content">
+                <div class="maxl">
+                    <div class="label-input">
+                        Rol de usuario
+                    </div>
+                    <label class="radio inline">
+                        <input type="radio" name="role" #role="ngModel" [(ngModel)]="user.role" value="ROLE_TALLER" required checked>
+                        <span> Taller </span>
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" name="role" #role="ngModel" [(ngModel)]="user.role" value="ROLE_BODEGA" required>
+                        <span>Bodega </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="content-input">
+                <span class="label-input">
+                    Contraseña
+                </span>
+                <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Password"
+                    class="form-control" pattern="[a-zA-Z0-9._-]{4,32}$" minlength="4" (focus)="focus('password')" (focusout)="focusOut('password')"
+                    [class.alert-input]="password.invalid && (password.dirty || password.touched)" required>
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                    <div id="password-alert" class="alert alert-danger" [class.alert-error]="password.invalid && (password.dirty || password.touched)">
+                        <div *ngIf="password.errors.required">
+                            Campo obligatorio.
+                        </div>
+                        <div *ngIf="password.errors.minlength">
+                            Debe contener 4 caracteres minimo.
+                        </div>
+                        <div *ngIf="password.invalid && !password.errors.minlength && !password.errors.required">
+                            Caracteres no validos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="loading">
+                <div class="kart-loader">
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                    <div class="sheath">
+                        <div class="segment"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!loading">
+                <div class="btn-content">
+                    <input type="submit" id="btn-add-user" value="Guardar" class="btn-add-user" [disabled]="!registerForm.form.valid" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
